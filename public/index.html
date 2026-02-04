@@ -179,7 +179,7 @@
                     let sourcesHtml = '';
                     if (data.sources && data.sources.length > 0) {
                         sourcesHtml = `<div class="flex flex-wrap gap-2 mt-3">
-                            ${data.sources.map(s => `<a href="${s}" target="_blank" class="text-xs text-orange-400 hover:text-orange-300 truncate max-w-xs">📄 ${new URL(s).hostname}</a>`).join('')}
+                            ${data.sources.map(s => `<a href="${s.url || s}" target="_blank" class="text-xs text-orange-400 hover:text-orange-300 truncate max-w-xs">📄 ${(s.title || s.url || s)}</a>`).join('')}
                         </div>`;
                     }
                     
