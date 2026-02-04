@@ -46,11 +46,20 @@ async function generateQuestions(content) {
 async function importDocumentation(url, options) {
   options = options || {};
   const content = await fetchUrlContent(url);
-  const summary = await generateSummary(content);
-  const questions = await generateQuestions(content);
+  
+  // Process in chunks if content is very long
+  let fullContent = content;
+  if (content.length > 50000) {
+    fullContent = content.substring(0, 50000) + '...';
+  }
+  
+  const summary = await generateSummary(fullContent);
+  const questions = await generateQuestions(fullContent);
+  
   return {
     url: url,
     title: extractTitle(content),
+    content: fullContent,  // Store full content for chunking
     summary: summary,
     questions: questions,
     wordCount: content.split(/\s+/).length,

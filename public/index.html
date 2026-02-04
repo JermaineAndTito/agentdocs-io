@@ -3,168 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgentDocs.io - AI-Powered Autonomous Documentation</title>
+    <title>AgentDocs.io - Knowledge Layer for AI Agents</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .gradient-text {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glow {
-            box-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
-        }
+        .gradient-text { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glow { box-shadow: 0 0 40px rgba(249, 115, 22, 0.3); }
+        .chat-message { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-black text-white font-sans">
-    <!-- Hero -->
-    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,115,22,0.1),transparent_50%)]"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="mb-8">
-                <span class="inline-block px-4 py-2 rounded-full bg-orange-500/10 text-orange-500 text-sm border border-orange-500/20">
-                    🤖 Powered by AI Agents
-                </span>
+<body class="bg-black text-white font-sans h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-gray-800 p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🤖</span>
+                <span class="font-bold text-xl">AgentDocs.io</span>
             </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                Documentation that<br>
-                <span class="gradient-text">Thinks for Itself</span>
-            </h1>
-            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                Transform static docs into living knowledge bases. AI summarization,
-                autonomous updates, and Moltbook integration.
-            </p>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <a href="#try" class="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition glow">
-                    Try Demo
-                </a>
-                <a href="#docs" class="px-8 py-4 border border-gray-700 hover:border-gray-600 rounded-lg font-semibold transition">
-                    Read Docs
-                </a>
-                <a href="https://twitter.com/AgentDocsIO" target="_blank" class="px-8 py-4 border border-gray-700 hover:border-gray-600 rounded-lg font-semibold transition">
-                    @AgentDocsIO
-                </a>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500">Indexed: <span id="docCount" class="text-orange-500">0</span> docs</span>
+                <a href="https://twitter.com/AgentDocsIO" target="_blank" class="text-gray-400 hover:text-white">@AgentDocsIO</a>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Features -->
-    <section class="py-24 bg-gray-900/50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <div class="text-4xl mb-4">📄</div>
-                    <h3 class="text-xl font-semibold mb-2">Import Docs</h3>
-                    <p class="text-gray-400">Connect GitBook, Notion, or upload markdown. AI extracts structure and content.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <div class="text-4xl mb-4">🧠</div>
-                    <h3 class="text-xl font-semibold mb-2">AI Summarizes</h3>
-                    <p class="text-gray-400">Automatic summarization, Q&A generation, and key insight extraction.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <div class="text-4xl mb-4">🌐</div>
-                    <h3 class="text-xl font-semibold mb-2">Auto-Publish</h3>
-                    <p class="text-gray-400">Posts summaries to Moltbook. Knowledge evolves with your docs.</p>
-                </div>
+    <!-- Main Content -->
+    <main class="flex-1 flex overflow-hidden">
+        <!-- Sidebar: Indexed Docs -->
+        <aside class="w-64 border-r border-gray-800 p-4 overflow-y-auto hidden md:block">
+            <h3 class="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider">Indexed Documents</h3>
+            <div id="docList" class="space-y-2">
+                <p class="text-gray-500 text-sm">No docs indexed yet.<br>Paste a URL below to start.</p>
             </div>
-        </div>
-    </section>
+        </aside>
 
-    <!-- Demo -->
-    <section id="try" class="py-24">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Try It Free</h2>
-            <div class="max-w-2xl mx-auto">
-                <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <input
-                        type="text"
-                        placeholder="Paste documentation URL..."
-                        class="w-full px-6 py-4 bg-black border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
-                        id="docUrl"
-                    >
-                    <button
-                        onclick="processDocs()"
-                        class="w-full mt-4 px-6 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition"
-                    >
-                        Transform Documentation
-                    </button>
-                </div>
-                <p class="text-center text-gray-500 mt-4">5 free docs/month • No credit card</p>
-                <div id="result" class="mt-6 hidden">
-                    <div class="p-4 rounded-lg bg-gray-800/50 border border-gray-700">
-                        <h3 id="resultTitle" class="font-semibold mb-2"></h3>
-                        <p id="resultSummary" class="text-gray-400 text-sm"></p>
+        <!-- Chat Area -->
+        <div class="flex-1 flex flex-col">
+            <!-- Messages -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Welcome Message -->
+                <div class="chat-message flex gap-4">
+                    <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-sm">🤖</div>
+                    <div class="bg-gray-800/50 rounded-2xl p-4 max-w-2xl">
+                        <p class="text-gray-300">Welcome to AgentDocs.io — the knowledge layer for AI agents.</p>
+                        <p class="text-gray-400 mt-2">I can answer questions about any documentation you've indexed. Try asking:</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <button onclick="askQuestion('How do I use prompt caching?')" class="px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded-full transition">Prompt Caching</button>
+                            <button onclick="askQuestion('What are the API rate limits?')" class="px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded-full transition">Rate Limits</button>
+                            <button onclick="askQuestion('How do I authenticate?')" class="px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded-full transition">Authentication</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Pricing -->
-    <section class="py-24 bg-gray-900/50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Pricing</h2>
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2">Free</h3>
-                    <div class="text-3xl font-bold mb-4">$0<span class="text-gray-500 text-base">/mo</span></div>
-                    <ul class="text-gray-400 space-y-2 mb-6">
-                        <li>✓ 5 docs/month</li>
-                        <li>✓ Basic summarization</li>
-                        <li>✓ Public knowledge base</li>
-                    </ul>
-                    <button class="w-full px-6 py-3 border border-gray-700 rounded-lg hover:border-orange-500 transition">Get Started</button>
-                </div>
-                <div class="p-8 rounded-2xl bg-orange-500/10 border border-orange-500">
-                    <h3 class="text-xl font-semibold mb-2 text-orange-500">Pro</h3>
-                    <div class="text-3xl font-bold mb-4">$29<span class="text-gray-500 text-base">/mo</span></div>
-                    <ul class="text-gray-400 space-y-2 mb-6">
-                        <li>✓ Unlimited docs</li>
-                        <li>✓ Advanced AI analysis</li>
-                        <li>✓ API access</li>
-                        <li>✓ Custom branding</li>
-                    </ul>
-                    <button class="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg transition">Start Trial</button>
-                </div>
-                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
-                    <div class="text-3xl font-bold mb-4">Custom</div>
-                    <ul class="text-gray-400 space-y-2 mb-6">
-                        <li>✓ Private instances</li>
-                        <li>✓ SSO integration</li>
-                        <li>✓ Dedicated support</li>
-                    </ul>
-                    <button class="w-full px-6 py-3 border border-gray-700 rounded-lg hover:border-orange-500 transition">Contact</button>
+            <!-- Input Area -->
+            <div class="border-t border-gray-800 p-4">
+                <div class="container mx-auto max-w-4xl">
+                    <!-- URL Input -->
+                    <div class="flex gap-2 mb-4">
+                        <input
+                            type="text"
+                            id="docUrl"
+                            placeholder="Paste documentation URL to index..."
+                            class="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+                        >
+                        <button
+                            onclick="indexDoc()"
+                            class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition flex items-center gap-2"
+                        >
+                            <span>📄</span>
+                            <span class="hidden sm:inline">Index</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Question Input -->
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="question"
+                            placeholder="Ask a question about your documentation..."
+                            class="w-full px-6 py-4 pr-14 bg-gray-800 border border-gray-700 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+                            onkeypress="if(event.key==='Enter')askQuestion()"
+                        >
+                        <button
+                            onclick="askQuestion()"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-orange-500 hover:bg-orange-600 rounded-full transition"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-center text-gray-500 text-xs mt-3">100 free queries/mo • AI synthesizes answers from your docs</p>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center text-gray-500">
-            <p class="text-xl mb-2">🤖 Built by Jermaine Research Network</p>
-            <p>
-                <a href="https://agentdocs.io" class="hover:text-orange-500">agentdocs.io</a> •
-                <a href="https://twitter.com/AgentDocsIO" target="_blank" class="hover:text-orange-500">@AgentDocsIO</a> •
-                <a href="https://www.moltbook.com/@agentdocs" class="hover:text-orange-500">@agentdocs</a>
-            </p>
-        </div>
-    </footer>
+    </main>
 
     <script>
-        async function processDocs() {
-            const url = document.getElementById('docUrl').value;
-            const result = document.getElementById('result');
-            
+        let indexedDocs = [];
+
+        // Index a document
+        async function indexDoc() {
+            const url = document.getElementById('docUrl').value.trim();
             if (!url) return alert('Please enter a URL');
             
-            result.classList.remove('hidden');
-            document.getElementById('resultTitle').textContent = 'Processing...';
-            document.getElementById('resultSummary').textContent = 'AI is analyzing your documentation...';
-            
+            const btn = document.querySelector('#docUrl').nextElementSibling;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="animate-spin">⏳</span> Indexing...';
+            btn.disabled = true;
+
             try {
                 const response = await fetch('/api/import', {
                     method: 'POST',
@@ -175,15 +123,131 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    document.getElementById('resultTitle').textContent = data.data.title;
-                    document.getElementById('resultSummary').textContent = data.data.summary.substring(0, 300) + '...';
+                    const docId = data.docId || Buffer.from(url).toString('base64').substring(0, 24);
+                    indexedDocs.push({ id: docId, url, title: data.data.title || url });
+                    updateDocList();
+                    document.getElementById('docUrl').value = '';
+                    addMessage('system', `✅ Indexed: ${data.data.title || url}`);
                 } else {
-                    document.getElementById('resultSummary').textContent = 'Error: ' + data.error;
+                    addMessage('error', 'Error indexing: ' + data.error);
                 }
             } catch (e) {
-                document.getElementById('resultSummary').textContent = 'Error: ' + e.message;
+                addMessage('error', 'Error: ' + e.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }
         }
+
+        // Ask a question
+        async function askQuestion(questionText) {
+            const question = questionText || document.getElementById('question').value.trim();
+            if (!question) return;
+            
+            document.getElementById('question').value = '';
+            addMessage('user', question);
+            
+            addMessage('loading', 'Thinking...');
+            
+            try {
+                const response = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        question,
+                        docIds: indexedDocs.map(d => d.id)
+                    })
+                });
+                
+                // Remove loading message
+                document.getElementById('chatMessages').lastElementChild.remove();
+                
+                const data = await response.json();
+                
+                if (data.answer) {
+                    let sourcesHtml = '';
+                    if (data.sources && data.sources.length > 0) {
+                        sourcesHtml = `<div class="flex flex-wrap gap-2 mt-3">
+                            ${data.sources.map(s => `<a href="${s}" target="_blank" class="text-xs text-orange-400 hover:text-orange-300 truncate max-w-xs">📄 ${new URL(s).hostname}</a>`).join('')}
+                        </div>`;
+                    }
+                    
+                    addMessage('bot', data.answer, sourcesHtml);
+                } else {
+                    addMessage('error', 'Error: ' + (data.error || 'Unknown error'));
+                }
+            } catch (e) {
+                document.getElementById('chatMessages').lastElementChild.remove();
+                addMessage('error', 'Error: ' + e.message);
+            }
+        }
+
+        // Add message to chat
+        function addMessage(type, content, extraHtml = '') {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'chat-message flex gap-4';
+            
+            if (type === 'user') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-sm">👤</div>
+                    <div class="bg-gray-800 rounded-2xl p-4 max-w-2xl">${content}</div>
+                `;
+            } else if (type === 'bot') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-sm">🤖</div>
+                    <div class="bg-gray-800/50 rounded-2xl p-4 max-w-2xl">
+                        <p class="text-gray-300">${content}</p>
+                        ${extraHtml}
+                    </div>
+                `;
+            } else if (type === 'loading') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-sm animate-pulse">🤖</div>
+                    <div class="bg-gray-800/50 rounded-2xl p-4"><span class="animate-pulse">...</span></div>
+                `;
+            } else if (type === 'system') {
+                div.innerHTML = `<p class="text-center text-gray-500 text-sm w-full">${content}</p>`;
+            } else if (type === 'error') {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-sm">⚠️</div>
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 max-w-2xl text-red-400">${content}</div>
+                `;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Update document list
+        function updateDocList() {
+            document.getElementById('docCount').textContent = indexedDocs.length;
+            const list = document.getElementById('docList');
+            
+            if (indexedDocs.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-sm">No docs indexed yet.<br>Paste a URL below to start.</p>';
+                return;
+            }
+            
+            list.innerHTML = indexedDocs.map(doc => `
+                <div class="p-2 bg-gray-800/50 rounded-lg text-sm truncate cursor-pointer hover:bg-gray-700 transition" title="${doc.url}">
+                    📄 ${doc.title || doc.url.substring(0, 25) + '...'}
+                </div>
+            `).join('');
+        }
+
+        // Load stats on page load
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                // Update doc count if available
+            } catch (e) {
+                console.log('Stats not available');
+            }
+        }
+        
+        loadStats();
     </script>
 </body>
 </html>

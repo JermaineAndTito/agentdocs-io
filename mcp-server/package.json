@@ -1,0 +1,22 @@
+{
+  "name": "agentdocs-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for AgentDocs.io - Knowledge layer for AI agents",
+  "main": "src/index.js",
+  "bin": {
+    "agentdocs-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "mcp",
+    "agentdocs",
+    "ai-agents",
+    "documentation",
+    "knowledge-base"
+  ],
+  "license": "MIT",
+  "dependencies": {}
+}
