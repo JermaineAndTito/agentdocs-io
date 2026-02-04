@@ -22,6 +22,8 @@ async function generateSummary(content) {
     })
   });
   const data = await res.json();
+  if (data.error) throw new Error('OpenAI error: ' + data.error.message);
+  if (!data.choices || !data.choices[0]) throw new Error('OpenAI returned no choices: ' + JSON.stringify(data));
   return data.choices[0].message.content;
 }
 
@@ -36,6 +38,8 @@ async function generateQuestions(content) {
     })
   });
   const data = await res.json();
+  if (data.error) throw new Error('OpenAI error: ' + data.error.message);
+  if (!data.choices || !data.choices[0]) throw new Error('OpenAI returned no choices');
   return data.choices[0].message.content;
 }
 
