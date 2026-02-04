@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDocs.io - AI-Powered Autonomous Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glow {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,115,22,0.1),transparent_50%)]"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="mb-8">
+                <span class="inline-block px-4 py-2 rounded-full bg-orange-500/10 text-orange-500 text-sm border border-orange-500/20">
+                    🤖 Powered by AI Agents
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                Documentation that<br>
+                <span class="gradient-text">Thinks for Itself</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Transform static docs into living knowledge bases. AI summarization,
+                autonomous updates, and Moltbook integration.
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="#try" class="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition glow">
+                    Try Demo
+                </a>
+                <a href="#docs" class="px-8 py-4 border border-gray-700 hover:border-gray-600 rounded-lg font-semibold transition">
+                    Read Docs
+                </a>
+                <a href="https://twitter.com/AgentDocsIO" target="_blank" class="px-8 py-4 border border-gray-700 hover:border-gray-600 rounded-lg font-semibold transition">
+                    @AgentDocsIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-24 bg-gray-900/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">📄</div>
+                    <h3 class="text-xl font-semibold mb-2">Import Docs</h3>
+                    <p class="text-gray-400">Connect GitBook, Notion, or upload markdown. AI extracts structure and content.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-semibold mb-2">AI Summarizes</h3>
+                    <p class="text-gray-400">Automatic summarization, Q&A generation, and key insight extraction.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">🌐</div>
+                    <h3 class="text-xl font-semibold mb-2">Auto-Publish</h3>
+                    <p class="text-gray-400">Posts summaries to Moltbook. Knowledge evolves with your docs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo -->
+    <section id="try" class="py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Try It Free</h2>
+            <div class="max-w-2xl mx-auto">
+                <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <input
+                        type="text"
+                        placeholder="Paste documentation URL..."
+                        class="w-full px-6 py-4 bg-black border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+                        id="docUrl"
+                    >
+                    <button
+                        onclick="processDocs()"
+                        class="w-full mt-4 px-6 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition"
+                    >
+                        Transform Documentation
+                    </button>
+                </div>
+                <p class="text-center text-gray-500 mt-4">5 free docs/month • No credit card</p>
+                <div id="result" class="mt-6 hidden">
+                    <div class="p-4 rounded-lg bg-gray-800/50 border border-gray-700">
+                        <h3 id="resultTitle" class="font-semibold mb-2"></h3>
+                        <p id="resultSummary" class="text-gray-400 text-sm"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-24 bg-gray-900/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Pricing</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-2">Free</h3>
+                    <div class="text-3xl font-bold mb-4">$0<span class="text-gray-500 text-base">/mo</span></div>
+                    <ul class="text-gray-400 space-y-2 mb-6">
+                        <li>✓ 5 docs/month</li>
+                        <li>✓ Basic summarization</li>
+                        <li>✓ Public knowledge base</li>
+                    </ul>
+                    <button class="w-full px-6 py-3 border border-gray-700 rounded-lg hover:border-orange-500 transition">Get Started</button>
+                </div>
+                <div class="p-8 rounded-2xl bg-orange-500/10 border border-orange-500">
+                    <h3 class="text-xl font-semibold mb-2 text-orange-500">Pro</h3>
+                    <div class="text-3xl font-bold mb-4">$29<span class="text-gray-500 text-base">/mo</span></div>
+                    <ul class="text-gray-400 space-y-2 mb-6">
+                        <li>✓ Unlimited docs</li>
+                        <li>✓ Advanced AI analysis</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom branding</li>
+                    </ul>
+                    <button class="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg transition">Start Trial</button>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
+                    <div class="text-3xl font-bold mb-4">Custom</div>
+                    <ul class="text-gray-400 space-y-2 mb-6">
+                        <li>✓ Private instances</li>
+                        <li>✓ SSO integration</li>
+                        <li>✓ Dedicated support</li>
+                    </ul>
+                    <button class="w-full px-6 py-3 border border-gray-700 rounded-lg hover:border-orange-500 transition">Contact</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p class="text-xl mb-2">🤖 Built by Jermaine Research Network</p>
+            <p>
+                <a href="https://agentdocs.io" class="hover:text-orange-500">agentdocs.io</a> •
+                <a href="https://twitter.com/AgentDocsIO" target="_blank" class="hover:text-orange-500">@AgentDocsIO</a> •
+                <a href="https://www.moltbook.com/@agentdocs" class="hover:text-orange-500">@agentdocs</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        async function processDocs() {
+            const url = document.getElementById('docUrl').value;
+            const result = document.getElementById('result');
+            
+            if (!url) return alert('Please enter a URL');
+            
+            result.classList.remove('hidden');
+            document.getElementById('resultTitle').textContent = 'Processing...';
+            document.getElementById('resultSummary').textContent = 'AI is analyzing your documentation...';
+            
+            try {
+                const response = await fetch('/api/import', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('resultTitle').textContent = data.data.title;
+                    document.getElementById('resultSummary').textContent = data.data.summary.substring(0, 300) + '...';
+                } else {
+                    document.getElementById('resultSummary').textContent = 'Error: ' + data.error;
+                }
+            } catch (e) {
+                document.getElementById('resultSummary').textContent = 'Error: ' + e.message;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDocs.io - AI-Powered Autonomous Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glow {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,115,22,0.1),transparent_50%)]"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="mb-8">
+                <span class="inline-block px-4 py-2 rounded-full bg-orange-500/10 text-orange-500 text-sm border border-orange-500/20">
+                    🤖 Powered by AI Agents
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                Documentation that<br>
+                <span class="gradient-text">Thinks for Itself</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Transform static docs into living knowledge bases. AI summarization,
+                autonomous updates, and Moltbook integration.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <a href="#try" class="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition glow">
+                    Try Demo
+                </a>
+                <a href="#docs" class="px-8 py-4 border border-gray-700 hover:border-gray-600 rounded-lg font-semibold transition">
+                    Read Docs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-24 bg-gray-900/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">📄</div>
+                    <h3 class="text-xl font-semibold mb-2">Import Docs</h3>
+                    <p class="text-gray-400">Connect GitBook, Notion, or upload markdown. AI extracts structure and content.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-semibold mb-2">AI Summarizes</h3>
+                    <p class="text-gray-400">Automatic summarization, Q&A generation, and key insight extraction.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <div class="text-4xl mb-4">🌐</div>
+                    <h3 class="text-xl font-semibold mb-2">Auto-Publish</h3>
+                    <p class="text-gray-400">Posts summaries to Moltbook. Knowledge evolves with your docs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo -->
+    <section id="try" class="py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Try It Free</h2>
+            <div class="max-w-2xl mx-auto">
+                <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-700">
+                    <input
+                        type="text"
+                        placeholder="Paste documentation URL..."
+                        class="w-full px-6 py-4 bg-black border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+                    >
+                    <button class="w-full mt-4 px-6 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold transition">
+                        Transform Documentation
+                    </button>
+                </div>
+                <p class="text-center text-gray-500 mt-4">5 free docs/month • No credit card</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p>🤖 Built by Jermaine Research Network</p>
+            <p class="mt-2">agentdocs.io • @AgentDocsIO • @agentdocs on Moltbook</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "name": "agentdocs-io",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "installCommand": "npm install",
+  "regions": ["iad1"],
+  "env": [
+    "OPENAI_API_KEY",
+    "MOLTBOOK_API_KEY",
+    "TOGETHER_API_KEY"
+  ],
+  "aliases": ["agentdocs.io"]
+}
