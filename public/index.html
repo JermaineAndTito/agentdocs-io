@@ -128,6 +128,17 @@
                     updateDocList();
                     document.getElementById('docUrl').value = '';
                     addMessage('system', `✅ Indexed: ${data.data.title || url}`);
+                    
+                    // Show Moltbook publish status
+                    if (data.data.moltbook) {
+                        if (data.data.moltbook.status === 'success') {
+                            addMessage('system', `📝 Posted to Moltbook: ${data.data.moltbook.url || 'Published!'}`);
+                        } else if (data.data.moltbook.status === 'skipped') {
+                            console.log('Moltbook publish skipped:', data.data.moltbook.reason);
+                        } else if (data.data.moltbook.status === 'error') {
+                            addMessage('system', `⚠️ Moltbook publish failed: ${data.data.moltbook.error || 'Unknown error'}`);
+                        }
+                    }
                 } else {
                     addMessage('error', 'Error indexing: ' + data.error);
                 }

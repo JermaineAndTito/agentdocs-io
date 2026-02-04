@@ -43,6 +43,38 @@ async function generateQuestions(content) {
   return data.choices[0].message.content;
 }
 
+const { generateSocialSummary, postToMoltbook } = require('../lib/moltbook.js');
+const { generateImage } = require('../lib/image.js');
+
+async function publishToMoltbook(doc) {
+  try {
+    console.log(`Publishing ${doc.title} to Moltbook...`);
+    
+    // Generate social-friendly summary
+    const socialContent = await generateSocialSummary(doc);
+    
+    // Generate image (optional)
+    let imageUrl = null;
+    try {
+      imageUrl = await generateImage(doc.title);
+    } catch (e) {
+      console.log('Image generation skipped:', e.message);
+    }
+    
+    // Post to Moltbook
+    const result = await postToMoltbook({
+      title: doc.title,
+      content: socialContent,
+      imageUrl
+    });
+    
+    return result;
+  } catch (e) {
+    console.log('Moltbook publish error:', e.message);
+    return { status: 'error', error: e.message };
+  }
+}
+
 async function importDocumentation(url, options) {
   options = options || {};
   const content = await fetchUrlContent(url);
@@ -56,19 +88,28 @@ async function importDocumentation(url, options) {
   const summary = await generateSummary(fullContent);
   const questions = await generateQuestions(fullContent);
   
-  return {
+  const doc = {
     url: url,
     title: extractTitle(content),
-    content: fullContent,  // Store full content for chunking
+    content: fullContent,
     summary: summary,
     questions: questions,
     wordCount: content.split(/\s+/).length,
     processedAt: new Date().toISOString()
   };
-}
-
-async function publishToMoltbook(doc) {
-  return { status: 'skipped', message: 'Moltbook publish not implemented' };
+  
+  // Auto-publish to Moltbook if enabled
+  if (options.autoPublish !== false) {
+    try {
+      const moltbookResult = await publishToMoltbook(doc);
+      doc.moltbook = moltbookResult;
+    } catch (e) {
+      console.log('Moltbook publish error:', e.message);
+      doc.moltbook = { status: 'error', error: e.message };
+    }
+  }
+  
+  return doc;
 }
 
 module.exports = { importDocumentation, publishToMoltbook };
