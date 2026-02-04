@@ -1,3 +1,4 @@
+const { stripHtml } = require("../lib/htmlstrip.js");
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 
 async function fetchUrlContent(url) {
@@ -77,7 +78,8 @@ async function publishToMoltbook(doc) {
 
 async function importDocumentation(url, options) {
   options = options || {};
-  const content = await fetchUrlContent(url);
+  const rawHtml = await fetchUrlContent(url);
+  const content = stripHtml(rawHtml);
   
   // Process in chunks if content is very long
   let fullContent = content;
@@ -90,7 +92,7 @@ async function importDocumentation(url, options) {
   
   const doc = {
     url: url,
-    title: extractTitle(content),
+    title: extractTitle(rawHtml),
     content: fullContent,
     summary: summary,
     questions: questions,
